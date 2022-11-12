@@ -16,7 +16,7 @@ resource "aws_db_instance" "myrds" {
   vpc_security_group_ids = [aws_security_group.mysg2.id]
   skip_final_snapshot    = true
 
-  db_name                = var.db_name
-  username               = var.db_username
-  password               = var.db_password
+  db_name  = var.db_name
+  username = var.db_username
+  password = var.db_password
 }

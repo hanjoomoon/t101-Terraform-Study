@@ -12,9 +12,9 @@ resource "aws_instance" "example" {
 
 terraform {
   backend "s3" {
-    bucket = "louis-t101study-tfstate-week3"
-    key    = "workspaces-${terraform.workspace}/terraform.tfstate"
-    region = "ap-northeast-2"
+    bucket         = "louis-t101study-tfstate-week3"
+    key            = "workspaces-${terraform.workspace}/terraform.tfstate"
+    region         = "ap-northeast-2"
     dynamodb_table = "terraform-locks-week3"
   }
 }

@@ -9,7 +9,7 @@ locals {
   }
 }
 
-resource "aws_iam_user" "myiamuser1"{
+resource "aws_iam_user" "myiamuser1" {
   name = "${local.name}1"
   tags = local.team
 }

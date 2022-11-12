@@ -1,18 +1,18 @@
 terraform {
   backend "s3" {
-    bucket = "louis-t101study-tfstate-week3-files"
-    key    = "stage/data-stores/mysql/terraform.tfstate"
-    region = "ap-northeast-2"
+    bucket         = "louis-t101study-tfstate-week3-files"
+    key            = "stage/data-stores/mysql/terraform.tfstate"
+    region         = "ap-northeast-2"
     dynamodb_table = "terraform-locks-week3-files"
   }
 }
 
 provider "aws" {
-  region  = "ap-northeast-2"
+  region = "ap-northeast-2"
 }
 
 resource "aws_vpc" "myvpc" {
-  cidr_block       = "10.10.0.0/16"
+  cidr_block           = "10.10.0.0/16"
   enable_dns_hostnames = true
 
   tags = {

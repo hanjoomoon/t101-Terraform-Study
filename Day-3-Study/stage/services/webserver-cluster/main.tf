@@ -1,14 +1,14 @@
 terraform {
   backend "s3" {
-    bucket = "louis-t101study-tfstate-week3-files"
-    key    = "stage/services/webserver-cluster/terraform.tfstate"
-    region = "ap-northeast-2"
+    bucket         = "louis-t101study-tfstate-week3-files"
+    key            = "stage/services/webserver-cluster/terraform.tfstate"
+    region         = "ap-northeast-2"
     dynamodb_table = "terraform-locks-week3-files"
   }
 }
 
 provider "aws" {
-  region  = "ap-northeast-2"
+  region = "ap-northeast-2"
 }
 
 data "terraform_remote_state" "db" {
@@ -125,10 +125,10 @@ data "aws_ami" "my_amazonlinux2" {
 }
 
 resource "aws_launch_configuration" "mylauchconfig" {
-  name_prefix     = "t101-lauchconfig-"
-  image_id        = data.aws_ami.my_amazonlinux2.id
-  instance_type   = "t2.micro"
-  security_groups = [aws_security_group.mysg.id]
+  name_prefix                 = "t101-lauchconfig-"
+  image_id                    = data.aws_ami.my_amazonlinux2.id
+  instance_type               = "t2.micro"
+  security_groups             = [aws_security_group.mysg.id]
   associate_public_ip_address = true
 
   # Render the User Data script as a template
@@ -148,8 +148,8 @@ resource "aws_autoscaling_group" "myasg" {
   name                 = "myasg"
   launch_configuration = aws_launch_configuration.mylauchconfig.name
   vpc_zone_identifier  = [aws_subnet.mysubnet1.id, aws_subnet.mysubnet2.id]
-  min_size = 2
-  max_size = 10
+  min_size             = 2
+  max_size             = 10
 
   health_check_type = "ELB"
   target_group_arns = [aws_lb_target_group.myalbtg.arn]
@@ -164,7 +164,7 @@ resource "aws_lb" "myalb" {
   name               = "t101-alb"
   load_balancer_type = "application"
   subnets            = [aws_subnet.mysubnet1.id, aws_subnet.mysubnet2.id]
-  security_groups = [aws_security_group.mysg.id]
+  security_groups    = [aws_security_group.mysg.id]
 
   tags = {
     Name = "t101-alb"
@@ -189,7 +189,7 @@ resource "aws_lb_listener" "myhttp" {
 }
 
 resource "aws_lb_target_group" "myalbtg" {
-  name = "t101-alb-tg"
+  name     = "t101-alb-tg"
   port     = 8080
   protocol = "HTTP"
   vpc_id   = data.terraform_remote_state.db.outputs.vpcid
